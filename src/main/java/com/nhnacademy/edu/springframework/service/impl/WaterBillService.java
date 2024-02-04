@@ -17,37 +17,13 @@ public class WaterBillService implements StandardWaterBillService {
 
     @Autowired
     private StandardBillStorage billStorage;
-
     @Override
     public List<WaterBill> calculated(int waterVolume) {
         List<WaterTariff> tariffs = billStorage.searchOptimalBill(waterVolume);
         List<WaterBill> waterBills = new ArrayList<>();
-        String target = null;
-        int remainingVolume = 0;
-
         for (WaterTariff tariff : tariffs) {
-            String currentTarget = tariff.getGovernment() + tariff.getUsage();
-            if (waterVolume > tariff.getSectorStart()) {
-                if (!currentTarget.equals(target)) {
-                    target = currentTarget;
-                    remainingVolume = waterVolume;
-                }
-
-                int volumeForStep = Math.min(remainingVolume, tariff.getSectorEnd() - tariff.getSectorStart() + 1);
-                int billForStep = volumeForStep * tariff.getSectorBill();
-                remainingVolume -= volumeForStep;
-
-                if (remainingVolume <= 0) {
-                    waterBills.add(new WaterBill(
-                            tariff.getGovernment(),
-                            tariff.getUsage(),
-                            tariff.getSectorBill(),
-                            billForStep));
-                }
-            }
-
+            waterBills.add(new WaterBill(tariff.getGovernment(),tariff.getUsage(),tariff.getSectorBill(),waterVolume*tariff.getSectorBill()));
         }
-
         return waterBills.stream()
                 .sorted(Comparator.comparingInt(WaterBill::getBillTotal))
                 .limit(5)

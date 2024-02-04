@@ -7,6 +7,7 @@ import com.nhnacademy.edu.springframework.repository.StandardBillStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("billStorage")
@@ -31,6 +32,12 @@ public class BillStorage implements StandardBillStorage {
 
     @Override
     public List<WaterTariff> searchOptimalBill(int waterVolume) {
-        return findAll();
+        List<WaterTariff> sortedTariff = new ArrayList<>();
+        for(WaterTariff waterTariff : tariffData){
+            if(waterTariff.getSectorStart()<waterVolume && waterTariff.getSectorEnd() >= waterVolume){
+                sortedTariff.add(waterTariff);
+            }
+        }
+        return sortedTariff;
     }
 }

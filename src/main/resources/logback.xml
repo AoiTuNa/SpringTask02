@@ -1,0 +1,30 @@
+<configuration>
+    <!-- 실행 시간 로그를 기록할 파일 appender -->
+    <appender name="FILE-ELAPSE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>elapse.log</file> <!-- 로그 파일 이름 -->
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern> <!-- 로그 메시지 포맷 -->
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>elapse.%d{yyyy-MM-dd}.log</fileNamePattern> <!-- 로그 파일 롤링 정책 -->
+            <maxHistory>30</maxHistory> <!-- 유지할 로그 파일 최대 수 -->
+        </rollingPolicy>
+    </appender>
+
+    <!-- BeanTimeRecord 클래스의 로그만 처리하는 로거 설정 -->
+    <logger name="com.nhnacademy.edu.springframework.aop.BeanTimeRecord" level="INFO" additivity="false">
+        <appender-ref ref="FILE-ELAPSE"/>
+    </logger>
+
+    <!-- 애플리케이션의 루트 로거 설정. 다른 로그는 콘솔에 출력하도록 설정할 수 있음 -->
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+    <!-- 콘솔 출력을 위한 appender 정의 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+</configuration>

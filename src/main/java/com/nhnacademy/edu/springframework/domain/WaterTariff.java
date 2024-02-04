@@ -1,21 +1,32 @@
 package com.nhnacademy.edu.springframework.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 public class WaterTariff {
-    private final int identifiyNumber;
-    private final String government;
-    private final String usage;
-    private final int step;
-    private final int sectorStart;
-    private final int sectorEnd;
-    private final int sectorBill;
+    @JsonProperty("순번")
+    private int identifiyNumber;
+    @JsonProperty("지자체명")
+    private String government;
+    @JsonProperty("업종")
+    private String usage;
+    @JsonProperty("단계")
+    private int step;
+    @JsonProperty("구간시작(세제곱미터)")
+    private int sectorStart;
+    @JsonProperty("구간끝(세제곱미터)")
+    private int sectorEnd;
+    @JsonProperty("구간금액(원)")
+    private int sectorBill;
     @Setter
+    @JsonProperty("단계별 기본요금(원)")
     private int standardBillByStep;
 
+    public WaterTariff(){
+    }
     public WaterTariff(int identifiyNumber, String government, String usage, int step,
                        int sectorStart, int sectorEnd, int sectorBill) {
         this.identifiyNumber = identifiyNumber;
