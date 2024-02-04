@@ -7,6 +7,17 @@
     <groupId>com.nhnacademy.edu.springframework</groupId>
     <artifactId>tariff</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <repositories>
+        <repository>
+            <id>release</id>
+            <url>https://github.com/edu-springboot/edu-springboot-maven-repo/raw/master/releases</url>
+        </repository>
+
+        <repository>
+            <id>snapshot</id>
+            <url>https://github.com/edu-springboot/edu-springboot-maven-repo/raw/master/snapshots</url>
+        </repository>
+    </repositories>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -60,6 +71,12 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.9.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>

@@ -7,5 +7,7 @@ import java.util.List;
 public interface StandardBillStorage {
     public void load(String filePath);
 
+    List<WaterTariff> findAll();
+
     List<WaterTariff> searchOptimalBill(int waterVolume);
 }

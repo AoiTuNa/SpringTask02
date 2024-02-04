@@ -1,18 +1,23 @@
 package com.nhnacademy.edu.springframework.domain;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
 public class WaterTariff {
-    private int identifiyNumber;
-    private String government;
-    private String usage;
-    private int step;
-    private int sectorStart;
-    private int sectorEnd;
-    private  int sectorBill;
+    private final int identifiyNumber;
+    private final String government;
+    private final String usage;
+    private final int step;
+    private final int sectorStart;
+    private final int sectorEnd;
+    private final int sectorBill;
+    @Setter
     private int standardBillByStep;
 
     public WaterTariff(int identifiyNumber, String government, String usage, int step,
-                       int sectorStart, int sectorEnd, int sectorBill, int standardBillByStep){
+                       int sectorStart, int sectorEnd, int sectorBill) {
         this.identifiyNumber = identifiyNumber;
         this.government = government;
         this.usage = usage;
@@ -20,8 +25,10 @@ public class WaterTariff {
         this.sectorStart = sectorStart;
         this.sectorEnd = sectorEnd;
         this.sectorBill = sectorBill;
-        this.standardBillByStep = standardBillByStep;
-
     }
-
+    @Override
+    public String toString(){
+        return "Tariff 순번"+getIdentifiyNumber() + "지자체명 :"+ getGovernment() + "업종 :" +getUsage() + "단계"
+                + getStep() +" 구간시작 : "+getSectorStart() + "구간종료 : "+getSectorEnd() + "단계별 기본요금 : "+ getStandardBillByStep();
+    }
 }
